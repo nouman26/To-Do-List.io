@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<!----- favicon----->
+    <link rel="icon" href="TF.png" type="image/gif" >
+	<title>TO DO LIST</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+</head>
+<body>
+	<a href="https://nouman26.github.io/" style="color: white; float:right; margin-right: 4%; margin-top: 1%; "><i class="fa fa-user-circle-o" aria-hidden="true"></i> About me!</a>
+	<header>
+		<div class="container">
+		<h2>TO DO LIST</h2>
+		<p>Click &#10003 to Add the item in Your List</p>
+		<p>Click "X" to remove the item from your list</p>
+	
+	<div class="input-group mb-3">
+  		<input type="text" class="form-control" id="input" placeholder="New item...">
+  		<div class="input-group-append">
+    		<button class="btn btn-success" id="button" type="submit">&#10003 Done</button>
+  		</div>
+	</div>
+
+		<ul class="list-group" id="list">
+		</ul>
+		</div>
+	</header>
+	<footer>
+		<h5 class="lin">©2020|All Rights Reserved By STW Calculator | Developed & Maintained by Nouman</h5>
+	</footer>
+</body>
+
+<script type="text/javascript">
+	var i=0;
+	function remove(e){
+		document.getElementById("idb"+e).addEventListener("click",function(){
+			var pa=document.getElementById("idp"+e);
+			pa.setAttribute("class","par");
+		});
+		}
+
+	function addclass(){
+		var last_Child_ul=document.getElementById("list").lastElementChild; // acess recently new appended li tag
+		last_Child_ul.setAttribute("class","list-group-item d-flex justify-content-between align-items-center"); // then add classes to li tag
+		last_Child_ul.setAttribute("id","idp"+i);
+		var last_Child_li = last_Child_ul.lastElementChild; // acess button tag that is child of li tag
+		last_Child_li.setAttribute("class","btn btn-danger"); // then add class to button tag
+		last_Child_li.setAttribute("type","submit"); // add type to button tag
+		last_Child_li.setAttribute("id","idb"+i);
+		var input=document.getElementById("input").value=""; // when press ok button then create a new list element then input value null
+		
+		remove(i);// to remove exit list item
+		i++;
+	}
+
+	function li_text(){
+		var input=document.getElementById("input").value;// acess input value
+		var last_Child_ul=document.getElementById("list").lastElementChild;  // acess recently new appended li tag
+		last_Child_ul.innerText=input; // add text to the li tag
+
+		var new_Element_button=document.createElement("button"); // Create New button tag
+		var btn_text=document.createTextNode("X");  //Create text for button tag
+		new_Element_button.appendChild(btn_text); // Now append button text to New button tag
+
+		last_Child_ul.appendChild(new_Element_button); //Now append Button to li tag as a child
+
+		addclass(); // call a function that adds class to new tag
+	}
+
+	//when ok button press to run this Function
+	function ok(){
+		if(document.getElementById("input").value=="")
+		{
+			alert("Please input Something!!!")
+		}
+		else{
+		var ul=document.getElementById('list');   // to acces ul tag b/c  append li and button tag 
+		var new_Element_li=document.createElement("li"); // Create New li tag
+		
+		ul.appendChild(new_Element_li); // Now append li tag to ul tag as a Child
+
+		li_text(); // call a function that adds class to new tag
+		}
+	}
+
+	document.getElementById("button").addEventListener("click",ok);
+	var inp = document.getElementById("input");
+
+	// Execute a function when the user releases a key on the keyboard
+	inp.addEventListener("keyup", function(event) {
+ 	 // Number 13 is the "Enter" key on the keyboard
+ 	 if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    
+    // Trigger the button element with a click
+    document.getElementById("button").click();
+  }
+});
+</script>
+</html>
